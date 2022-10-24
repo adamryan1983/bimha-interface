@@ -26,7 +26,11 @@ const Roster = (props) => {
     name: '',
     dob: '',
     jersey: 0,
-    status: ''
+    status: '',
+    goals: 0,
+    assists: 0,
+    points: 0,
+    pim: 0,
   };
 
   const [players, setPlayers] = useState(null);
@@ -121,7 +125,11 @@ const Roster = (props) => {
               "dob": `${player.dob}`,
               "name": `${player.name}`,
               "jersey": `${player.jersey}`,
-              "status": `${player.status}`
+              "status": `${player.status}`,
+              "goals": 0,
+              "assists": 0,
+              "points": 0,
+              "pim": 0
           },
       ]
     });
@@ -152,7 +160,12 @@ const Roster = (props) => {
             "dob": `${player.dob}`,
             "name": `${player.name}`,
             "jersey": `${player.jersey}`,
-            "status": `${player.status}`
+            "status": `${player.status}`,
+            "goals": `${player.goals}`,
+            "assists": `${player.assists}`,
+            "points": `${player.goals + player.assists}`,
+            "pim": `${player.pim}`,
+
         },
     ]
     });
@@ -280,9 +293,9 @@ const Roster = (props) => {
   }
 
   const onDateChange = (e, dob) => {
-    const val = (e.target && e.target.value) || '';
+    const val = (e.target && e.target.value) || player.dob;
     let _player = {...player};
-    _player[`${dob}`] = val.toISOString().substring(0, 10);;
+    _player[`${dob}`] = val.toISOString().substring(0, 10);
     setPlayer(_player);
   }
 
@@ -293,29 +306,36 @@ const Roster = (props) => {
     setPlayer(_player);
   }
 
+  const onPenaltyNumberChange = (e, pim) => {
+    const val = e.value || 0;
+    let _player = {...player};
+    _player[`${pim}`] = val;
+    setPlayer(_player);
+  }
+
   const leftToolbarTemplate = () => {
     return (
-        <React.Fragment>
+        <>
             <Button label="New" icon="pi pi-plus" className="p-button-success p-mr-2" onClick={openNew} />
             <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={confirmDeleteSelected} disabled={!selectedPlayers || !selectedPlayers.length} />
-        </React.Fragment>
+        </>
     )
   }
 
   const rightToolbarTemplate = () => {
     return (
-        <React.Fragment>
+        <>
             <Button label="Export" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} />
-        </React.Fragment>
+        </>
     )
   }
 
   const actionBodyTemplate = (rowData) => {
     return (
-        <React.Fragment>
+        <>
             <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-2" onClick={() => editPlayer(rowData)} />
             {/* <Button icon="pi pi-trash" className="p-button-rounded p-button-warning" onClick={() => confirmDeletePlayer(rowData)} /> */}
-        </React.Fragment>
+        </>
     );
   }
 
@@ -329,28 +349,28 @@ const Roster = (props) => {
     </div>
   );
   const playerDialogFooter = (
-    <React.Fragment>
+    <>
         <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
         <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={savePlayer} />
-    </React.Fragment>
+    </>
   );
   const updatePlayerDialogFooter = (
-    <React.Fragment>
+    <>
         <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideUpdateDialog} />
         <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={savePlayer} />
-    </React.Fragment>
+    </>
   );
   const deletePlayerDialogFooter = (
-    <React.Fragment>
+    <>
         <Button label="No" icon="pi pi-times" className="p-button-text" onClick={hideDeletePlayerDialog} />
         <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={deleteSelectedPlayers} />
-    </React.Fragment>
+    </>
   );
   const deletePlayersDialogFooter = (
-    <React.Fragment>
+    <>
         <Button label="No" icon="pi pi-times" className="p-button-text" onClick={hideDeletePlayersDialog} />
         <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={deleteSelectedPlayers} />
-    </React.Fragment>
+    </>
   );
 
   return (
@@ -366,8 +386,9 @@ const Roster = (props) => {
             <div className="card">
                 <Toolbar className="p-mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
 
+                {/*table layout */}
                 <DataTable ref={dt} value={players} selection={selectedPlayers} onSelectionChange={(e) => setSelectedPlayers(e.value)}
-                    dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
+                    dataKey="id" paginator rows={15} rowsPerPageOptions={[5, 10, 25]}
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} players"
                     globalFilter={globalFilter}
@@ -378,10 +399,16 @@ const Roster = (props) => {
                     <Column field="dob" header="Date of Birth" sortable></Column>
                     <Column field="jersey" header="Jersey #" sortable></Column>
                     <Column field="status" header="Status" sortable></Column>
+                    <Column field="goals" header="Goals" sortable></Column>
+                    <Column field="assists" header="Assists" sortable></Column>
+                    <Column field="points" header="Points" sortable></Column>
+                    <Column field="pim" header="Penalty Minutes" sortable></Column>
                     <Column body={actionBodyTemplate}></Column>
                 </DataTable>
             </div>
 
+
+            {/* adding new player dialog */}
             <Dialog visible={playerDialog} style={{ width: '450px' }} header="Player Details" modal className="p-fluid" footer={playerDialogFooter} onHide={hideDialog}>
               <div className="p-field">
                   <label htmlFor="name">Name</label>
@@ -391,7 +418,7 @@ const Roster = (props) => {
               <div className="p-field p-col-12 p-md-4">
                   <label htmlFor="dob">Date of Birth</label>
                   <Calendar id="dob" value={player.dob} onChange={(e) => onDateChange(e, 'dob')} monthNavigator yearNavigator yearRange="2000:2030"
-                      monthNavigatorTemplate={monthNavigatorTemplate} yearNavigatorTemplate={yearNavigatorTemplate} />
+                      monthNavigatorTemplate={monthNavigatorTemplate} yearNavigatorTemplate={yearNavigatorTemplate}/>
               </div>
               <div className="p-formgrid p-grid">
                 <div className="p-field p-col">
@@ -400,11 +427,12 @@ const Roster = (props) => {
                 </div>
                 <div className="p-field p-col">
                     <label htmlFor="status">Status</label>
-                    <Dropdown id="status" value={player.status} options={statuses} onChange={(e) => onInputChange(e, 'status')}              placeholder="Select a Status"/>
+                    <Dropdown id="status" value={player.status} options={statuses} onChange={(e) => onInputChange(e, 'status')} placeholder="Select a Status"/>
                 </div>
               </div>
             </Dialog>
 
+            {/* updating player dialog */}
             <Dialog visible={updatePlayerDialog} style={{ width: '450px' }} header="Player Details" modal className="p-fluid" footer={updatePlayerDialogFooter} onHide={hideUpdateDialog}>
               <div className="p-field">
                   <label htmlFor="name">Name</label>
@@ -414,7 +442,7 @@ const Roster = (props) => {
               <div className="p-field p-col-12 p-md-4">
                   <label htmlFor="dob">Date of Birth</label>
                   <Calendar id="dob" value={player.dob} onChange={(e) => onDateChange(e, 'dob')} monthNavigator yearNavigator yearRange="2000:2030"
-                      monthNavigatorTemplate={monthNavigatorTemplate} yearNavigatorTemplate={yearNavigatorTemplate} />
+                      monthNavigatorTemplate={monthNavigatorTemplate} yearNavigatorTemplate={yearNavigatorTemplate} placeholder={player.dob}/>
               </div>
               <div className="p-formgrid p-grid">
                 <div className="p-field p-col">
@@ -423,11 +451,29 @@ const Roster = (props) => {
                 </div>
                 <div className="p-field p-col">
                     <label htmlFor="status">Status</label>
-                    <Dropdown id="status" value={player.status} options={statuses} onChange={(e) => onInputChange(e, 'status')}              placeholder="Select a Status"/>
+                    <Dropdown id="status" value={player.status} options={statuses} onChange={(e) => onInputChange(e, 'status')} placeholder="Select a Status"/>
+                </div>
+                <div className="field col-12 md:col-3">
+                  <label htmlFor="goals">Goals</label>
+                  <InputNumber id="goals" value={player.goals} onValueChange={(e) => onInputNumberChange(e, 'goals')} integeronly showButtons min={0} max={100} />
+                </div>
+                <div className="field col-12 md:col-3">
+                  <label htmlFor="assists">Assists</label>
+                  <InputNumber id="assists" value={player.assists} onValueChange={(e) => onInputNumberChange(e, 'assists')} integeronly showButtons min={0} max={100} />
+                </div>
+                <div className="field col-12 md:col-3">
+                  <label htmlFor="points">Points</label>
+                  <InputNumber id="points" value={player.goals + player.assists} onValueChange={(e) => onInputNumberChange(e, 'points')} readOnly/>
+                </div>
+                <div className="field col-12 md:col-3">
+                  <label htmlFor="pim">Penalty Minutes</label>
+                  <InputNumber id="pim" value={player.pim} onValueChange={(e) => onPenaltyNumberChange(e, 'pim')} integeronly showButtons min={0} max={100} />
+
                 </div>
               </div>
             </Dialog>
 
+            {/* delete player dialog */}
             <Dialog visible={deletePlayerDialog} style={{ width: '450px' }} header="Confirm" modal footer={deletePlayerDialogFooter} onHide={hideDeletePlayerDialog}>
                 <div className="confirmationContent">
                     <i className="pi pi-exclamation-triangle p-mr-3" style={{ fontSize: '2rem'}} />
@@ -435,6 +481,7 @@ const Roster = (props) => {
                 </div>
             </Dialog>
 
+            {/* delete players dialog confirm*/}
             <Dialog visible={deletePlayersDialog} style={{ width: '450px' }} header="Confirm" modal footer={deletePlayersDialogFooter} onHide={hideDeletePlayersDialog}>
                 <div className="confirmationContent">
                     <i className="pi pi-exclamation-triangle p-mr-3" style={{ fontSize: '2rem'}} />

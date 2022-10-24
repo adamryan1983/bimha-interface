@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import Head from 'next/head'
 import styles from '@styles/Login.module.scss'
+import { useAuthenticated } from '@lib/context/state'
 
 //prime imports
 import { Button } from 'primereact/button';
@@ -12,8 +13,13 @@ const Login = (props: any) => {
 
   const [password,setPassword] = useState();
 
+  const {authenticated, setAuthenticated} = useAuthenticated();
+
+  const [error, setError] = useState('')
+
+
   const verifyPassword = () => {
-    password === process.env.NEXT_PUBLIC_PASSPHRASE ? props.setAuthenticated(true) : props.setAuthenticated(false);
+    password === process.env.NEXT_PUBLIC_PASSPHRASE ? (setAuthenticated(true), setError('')): (setAuthenticated(false),setError('Incorrect Password'));
   }
 
   const handlePassword = (event: any) => {
@@ -36,6 +42,7 @@ const Login = (props: any) => {
           <InputText type="password" className={styles.password} onChange={handlePassword}/>
         </p>
         <Button className={styles.submitButton} onClick={verifyPassword}>Login</Button>
+        <div style={{color: 'red'}}>{error}</div>
       </main>
     </div>
   )

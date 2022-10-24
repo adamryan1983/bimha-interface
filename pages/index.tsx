@@ -1,14 +1,16 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useContext, createContext} from 'react'
 import MainPage from '@pages/MainPage'
 import Login from '@pages/Login'
+import { useAuthenticated, AuthenticationContext } from '@context/state'
 
 const Home = ( props:any ) => {
 
-  //set back to false later
-const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
 
   return (
-    authenticated === true ? <MainPage isConnected={props.isConnected}/> : <Login authenticated = {authenticated} setAuthenticated={setAuthenticated} />
+    <AuthenticationContext.Provider value={{authenticated, setAuthenticated}}>
+      {(authenticated === true ? <MainPage isConnected={props.isConnected} setIsConnected={props.setIsConnected}/> : <Login />)}
+    </AuthenticationContext.Provider>
   )
 }
 

@@ -34,11 +34,11 @@
       "@lib/*": [
         "lib/*"
       ],
-      "@context/*": [
-        "context/*"
-      ],
       "@utils/*": [
         "utils/*"
+      ],
+      "@context/*" : [
+        "lib/context/*"
       ]
     },
     "incremental": true
@@ -52,7 +52,7 @@
     "pages/index.tsx",
     "utils/harperdb.js",
     "pages/roster/Roster.jsx"
-  ],
+, "lib/context/state.jsx", "pages/divisions/Division.jsx", "pages/divisions/Division.jsx", "pages/MainPage.jsx", "pages/MainPage.jsx"  ],
   "exclude": [
     "node_modules"
   ]

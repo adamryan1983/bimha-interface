@@ -444,7 +444,7 @@ const Schedule = (props) => {
                 </div>
                 <div className="p-field p-col-12 p-md-4">
                     <label htmlFor="date">Date of Game</label>
-                    <Calendar id="date" value={event.date} onChange={(e) => onDateChange(e, 'date')} showIcon />
+                    <Calendar id="date" value={event.date} onChange={(e) => onDateChange(e, 'date')} showIcon placeholder={event.date}/>
                 </div>
                 <div className="p-field p-col-12 p-md-4">
                   <div className="p-field p-col">

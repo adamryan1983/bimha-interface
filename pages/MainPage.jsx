@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { useState } from 'react'
 import styles from '@styles/MainPage.module.scss'
 import Division from '@pages/divisions/Division'
+import { useAuthenticated } from '@lib/context/state'
 
 //primereact components
 import { Button } from 'primereact/button';
@@ -10,23 +11,21 @@ import 'primereact/resources/themes/mdc-light-deeppurple/theme.css';
 import 'primereact/resources/primereact.css';
 import { NextPage } from 'next'
 
-interface Props {
-  data?: Array<any>;
-  item?: any;
-  isConnected?: boolean;
-}
 
-const MainPage: NextPage<Props> = (props) => {
+
+const MainPage = (props) => {
 
   const [ division, setDivision ] = useState()
   const [ page, setPage ] = useState(false)
 
-  const printer = (e: any) => {
+  const {setAuthenticated} = useAuthenticated()
+
+  const printer = (e) => {
     e.preventDefault();
     setPage(true)
   }
 
-  const handleDivisionChange = (e: any) => {
+  const handleDivisionChange = (e) => {
     setDivision(e.target.value)
   }
 
@@ -70,6 +69,7 @@ const MainPage: NextPage<Props> = (props) => {
           <p className={styles.p}>
               <Button onClick={printer} label="Submit"/>
           </p>
+          <Button onClick={() => setAuthenticated(false)} label="Log Out" style={{backgroundColor: 'red'}}/>
         </main>
       </div>
     </form>

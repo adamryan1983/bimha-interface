@@ -8,7 +8,7 @@ import Scores from '../scores/Scores'
 //primereact
 import { Button } from 'primereact/button';
 
-const Division = (props: any) => {
+const Division = (props) => {
 
   const [choice, setChoice] = useState(0)
     {
@@ -20,7 +20,7 @@ const Division = (props: any) => {
         case 3:
           return <Scores division={props.division}/>;
         case 4:
-          return <MainPage isConnected={props.isConnected}/>;
+          return <MainPage isConnected={props.isConnected} setIsConnected={undefined}/>;
         default:
           return (
             <div className={styles.container}>
