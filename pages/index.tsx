@@ -13,7 +13,7 @@ const Home = ( props:any ) => {
       {(authenticated === 'main' &&
     <MainPage isConnected={props.isConnected} setIsConnected={props.setIsConnected}/>)
 || (authenticated === 'blog' &&
-    <BlogPage isConnected={props.isConnected} setIsConnected={props.setIsConnected}/>)
+    <BlogPage />)
 ||
     <Login authenticated={authenticated} setAuthenticated={setAuthenticated}/>
 }
