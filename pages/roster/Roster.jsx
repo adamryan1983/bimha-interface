@@ -121,16 +121,16 @@ const Roster = (props) => {
       "schema": "roster",
       "table": `${props.division}roster`,
       "records": [
-          {
-              "dob": `${player.dob}`,
-              "name": `${player.name}`,
-              "jersey": `${player.jersey}`,
-              "status": `${player.status}`,
-              "goals": 0,
-              "assists": 0,
-              "points": 0,
-              "pim": 0
-          },
+        {
+          "dob": `${player.dob}`,
+          "name": `${player.name}`,
+          "jersey": `${player.jersey}`,
+          "status": `${player.status}`,
+          "goals": 0,
+          "assists": 0,
+          "points": 0,
+          "pim": 0
+        },
       ]
     });
     const requestOptions = {
@@ -325,7 +325,7 @@ const Roster = (props) => {
   const rightToolbarTemplate = () => {
     return (
         <>
-            <Button label="Export" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} />
+          <Button label="Export" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} />
         </>
     )
   }
@@ -333,8 +333,8 @@ const Roster = (props) => {
   const actionBodyTemplate = (rowData) => {
     return (
         <>
-            <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-2" onClick={() => editPlayer(rowData)} />
-            {/* <Button icon="pi pi-trash" className="p-button-rounded p-button-warning" onClick={() => confirmDeletePlayer(rowData)} /> */}
+          <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-2" onClick={() => editPlayer(rowData)} />
+          {/* <Button icon="pi pi-trash" className="p-button-rounded p-button-warning" onClick={() => confirmDeletePlayer(rowData)} /> */}
         </>
     );
   }

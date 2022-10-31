@@ -9,7 +9,6 @@ import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import 'primereact/resources/themes/mdc-light-deeppurple/theme.css';
 import 'primereact/resources/primereact.css';
-import { NextPage } from 'next'
 
 
 

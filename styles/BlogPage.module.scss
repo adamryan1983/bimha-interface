@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  margin: 1rem;
+  width: 100vw;
+}
+
+.postText {
+  width: 40rem;
+  height: 20rem;
+  border: 1px solid #ccc;
+}
+
+.blogPost {
+  padding: 1rem;
+  margin: 3rem 0;
+}
+
+.postArea {
+  width: 60%;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.postsArea {
+  border: 1px solid black;
+  width: 40%;
+  height: 100%;
+}
