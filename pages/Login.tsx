@@ -46,35 +46,41 @@ const Login = (props: Props) => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>BIMHA</title>
+        <title>BIMHA Admin</title>
         <meta name="description" content="BIMHA Website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          BIMHA Admin Portal
-        </h1>
-        <h2 className={styles.title}>
-          Enter the password:
-        </h2>
-        <p className={styles.p}>
-          <InputText type="password" className={styles.password} onChange={handlePassword}/>
-        </p>
-        <Button className={styles.submitButton} onClick={verifyPassword}>Login</Button>
-        <div style={{color: 'red'}}>{error}</div>
-        <h1 className={styles.title}>
-          BIMHA Blog Access (admin only)
-        </h1>
-        <h1 className={styles.title}>
-        Enter the password:
-        </h1>
-        <p className={styles.p}>
-          <InputText type="password" className={styles.password} onChange={handlePasswordBlog}/>
-        </p>
-        <Button className={styles.submitButton} onClick={verifyPasswordBlog}>Login</Button>
-        <div style={{color: 'red'}}>{errorBlog}</div>
+        <h1>BIMHA Management</h1>
+        <div className={styles.teamSection}>
+          <h2 className={styles.title}>
+            BIMHA Team Admin Portal (Coaches, Parent Rep, and Board Member Access Only)
+          </h2>
+          <h4 className={styles.title}>
+            Enter the password:
+          </h4>
+          <p className={styles.p}>
+            <InputText type="password" className={styles.password} onChange={handlePassword}/>
+          </p>
+          <Button className={styles.submitButton} onClick={verifyPassword}>Login</Button>
+          <div style={{color: 'red'}}>{error}</div>
+        </div>
+        
       </main>
+      <div className={styles.blogSection}>
+          <h3 className={styles.title}>
+            BIMHA Blog Editor (Site Admin only)
+          </h3>
+          <h4 className={styles.title}>
+          Enter the password:
+          </h4>
+          <p className={styles.p}>
+            <InputText type="password" className={styles.password} onChange={handlePasswordBlog}/>
+          </p>
+          <Button className={styles.submitButton} onClick={verifyPasswordBlog}>Login</Button>
+          <div style={{color: 'red'}}>{errorBlog}</div>
+        </div>
     </div>
   )
 }
