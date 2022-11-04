@@ -10,37 +10,27 @@ import 'primereact/resources/themes/mdc-light-deeppurple/theme.css';
 import 'primereact/resources/primereact.css';
 
 type Props = {
-  authenticated: string;
-  setAuthenticated: (authenticated: string) => void;
+  authenticated: boolean;
+  setAuthenticated: (authenticated: boolean) => void;
 }
 
 const Login = (props: Props) => {
 
   const [password,setPassword] = useState();
 
-  const [passwordBlog, setPasswordBlog] = useState<string>();
-
   const {authenticated, setAuthenticated} = useAuthenticated();
 
   const [error, setError] = useState('')
 
-  const [errorBlog, setErrorBlog] = useState('')
-
-
   const verifyPassword = () => {
-    password === process.env.NEXT_PUBLIC_PASSPHRASE ? (setAuthenticated('main'), setError('')): (setAuthenticated('false'),setError('Incorrect Password'));
-  }
-
-  const verifyPasswordBlog = () => {
-    passwordBlog === process.env.NEXT_PUBLIC_PASSPHRASE_BLOG ? (setAuthenticated('blog'), setError('')): (setAuthenticated('false'),setErrorBlog('Incorrect Password'));
+    password === process.env.NEXT_PUBLIC_PASSPHRASE ? (setAuthenticated(true), setError('')): (setAuthenticated(false), 
+    setTimeout(() => {
+      setError('')
+    }, 2000), setError('Incorrect Password'))
   }
 
   const handlePassword = (event: any) => {
     setPassword(event.target.value);
-  };
-
-  const handlePasswordBlog = (event: any) => {
-    setPasswordBlog(event.target.value);
   };
 
   return (
@@ -55,8 +45,11 @@ const Login = (props: Props) => {
         <h1>BIMHA Management</h1>
         <div className={styles.teamSection}>
           <h2 className={styles.title}>
-            BIMHA Team Admin Portal (Coaches, Parent Rep, and Board Member Access Only)
+            BIMHA Team Admin Portal
           </h2>
+          <h5 className={styles.subTitle}>
+          (Coaches, Parent Rep, and Board Member Access Only)
+          </h5>
           <h4 className={styles.title}>
             Enter the password:
           </h4>
@@ -68,19 +61,6 @@ const Login = (props: Props) => {
         </div>
         
       </main>
-      <div className={styles.blogSection}>
-          <h3 className={styles.title}>
-            BIMHA Blog Editor (Site Admin only)
-          </h3>
-          <h4 className={styles.title}>
-          Enter the password:
-          </h4>
-          <p className={styles.p}>
-            <InputText type="password" className={styles.password} onChange={handlePasswordBlog}/>
-          </p>
-          <Button className={styles.submitButton} onClick={verifyPasswordBlog}>Login</Button>
-          <div style={{color: 'red'}}>{errorBlog}</div>
-        </div>
     </div>
   )
 }
