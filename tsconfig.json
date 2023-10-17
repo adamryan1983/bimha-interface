@@ -52,7 +52,7 @@
     "pages/index.tsx",
     "utils/harperdb.js",
     "pages/roster/Roster.jsx"
-, "lib/context/state.jsx", "pages/divisions/Division.jsx", "pages/divisions/Division.jsx", "pages/MainPage.jsx", "pages/MainPage.jsx"  ],
+, "lib/context/state.jsx", "pages/divisions/Division.tsx", "pages/divisions/Division.tsx", "pages/MainPage.tsx", "pages/MainPage.tsx"  ],
   "exclude": [
     "node_modules"
   ]

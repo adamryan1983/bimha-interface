@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useState } from 'react'
+import { SetStateAction, useState } from 'react'
 import styles from '@styles/MainPage.module.scss'
 import Division from '@pages/divisions/Division'
 import { useAuthenticated } from '@lib/context/state'
@@ -11,20 +11,19 @@ import 'primereact/resources/themes/mdc-light-deeppurple/theme.css';
 import 'primereact/resources/primereact.css';
 
 
+const MainPage = (props: { isConnected: boolean }) => {
 
-const MainPage = (props) => {
-
-  const [ division, setDivision ] = useState()
+  const [ division, setDivision ] = useState('')
   const [ page, setPage ] = useState(false)
 
   const {setAuthenticated} = useAuthenticated()
 
-  const printer = (e) => {
+  const printer = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setPage(true)
   }
 
-  const handleDivisionChange = (e) => {
+  const handleDivisionChange = (e: any) => {
     setDivision(e.target.value)
   }
 
@@ -34,7 +33,8 @@ const MainPage = (props) => {
     {label: 'U11', value: 'u11'},
     {label: 'U13', value: 'u13'},
     {label: 'U15', value: 'u15'},
-    {label: 'U18', value: 'u18'}
+    {label: 'U18', value: 'u18'},
+    {label: 'U11 Eagles', value: 'u11eagles'}
 ];
   return (
     <>
@@ -42,8 +42,8 @@ const MainPage = (props) => {
     <form>
       <div className={styles.container}>
         <Head>
-          <title>BIMHL</title>
-          <meta name="description" content="BIMHA Website" />
+          <title>Hockey League</title>
+          <meta name="description" content="Hockey Website" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
@@ -51,7 +51,7 @@ const MainPage = (props) => {
           <h2 className={styles.title}>
             <div className={styles.centered}>
               <p>Welcome to the</p>
-              <span className={styles.link}>BIMHA</span> Management System
+              <span className={styles.link}>HOCKEY</span> Management System
             </div>
           </h2>
           

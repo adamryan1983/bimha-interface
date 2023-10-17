@@ -36,16 +36,16 @@ const Login = (props: Props) => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>BIMHA Admin</title>
-        <meta name="description" content="BIMHA Website" />
+        <title>Hockey Admin</title>
+        <meta name="description" content="Hockey Admin Website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <h1>BIMHA Management</h1>
+        <h1>Hockey Team Management</h1>
         <div className={styles.teamSection}>
           <h2 className={styles.title}>
-            BIMHA Team Admin Portal
+            Hockey Team Admin Portal
           </h2>
           <h5 className={styles.subTitle}>
           (Coaches, Parent Rep, and Board Member Access Only)

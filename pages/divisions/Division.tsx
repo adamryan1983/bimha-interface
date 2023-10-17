@@ -8,24 +8,29 @@ import Scores from '../scores/Scores'
 //primereact
 import { Button } from 'primereact/button';
 
-const Division = (props) => {
+type Props = {
+  division: string
+  isConnected: boolean
+}
+
+const Division = ({isConnected, division}: Props) => {
 
   const [choice, setChoice] = useState(0)
     {
       switch (choice) {
         case 1:
-          return <Roster division={props.division} />;
+          return <Roster division={division} />;
         case 2:
-          return <Schedule division={props.division} />;
+          return <Schedule division={division} />;
         case 3:
-          return <Scores division={props.division}/>;
+          return <Scores division={division}/>;
         case 4:
-          return <MainPage isConnected={props.isConnected} setIsConnected={undefined}/>;
+          return <MainPage isConnected={isConnected}/>;
         default:
           return (
             <div className={styles.container}>
               <div className={styles.title}>
-                {props.division} Division 
+                {division} Division 
               </div>
               <div className={styles.content}>
                 <div className={styles.option}>
