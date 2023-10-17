@@ -6,8 +6,6 @@ import { useAuthenticated } from '@lib/context/state'
 //prime imports
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
-import 'primereact/resources/themes/mdc-light-deeppurple/theme.css';
-import 'primereact/resources/primereact.css';
 
 type Props = {
   authenticated: boolean;

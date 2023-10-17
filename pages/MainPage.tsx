@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import styles from '@styles/MainPage.module.scss'
 import Division from '@pages/divisions/Division'
 import { useAuthenticated } from '@lib/context/state'
@@ -7,8 +7,7 @@ import { useAuthenticated } from '@lib/context/state'
 //primereact components
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
-import 'primereact/resources/themes/mdc-light-deeppurple/theme.css';
-import 'primereact/resources/primereact.css';
+// import 'primereact/resources/primereact.css';
 
 
 const MainPage = (props: { isConnected: boolean }) => {
